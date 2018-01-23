@@ -35,7 +35,7 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
 </soap:Envelope>
 ```
 
-(response)
+example: List<Person> getAllUsers (response)
 ```
 <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
     <S:Body>
