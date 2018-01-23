@@ -18,9 +18,9 @@ wsdl: http://resourceadapter.herokuapp.com/?wsdl
 - **List\<Person\> getAllUsers()**  =>  get the list of all the registered users
 
 
-# Manual SOAP requests (Postman)
+## Manual SOAP requests (Postman)
 
-List<Person> getAllUsers
+example: List<Person> getAllUsers
 (request)
   
 ```
