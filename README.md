@@ -16,3 +16,48 @@ wsdl: http://resourceadapter.herokuapp.com/?wsdl
 - **Person getPersonByUser(String id)**  =>  get the person information given the identifier id
 - **void register(String name)**  =>  register a new user with a given name
 - **List\<Person\> getAllUsers()**  =>  get the list of all the registered users
+
+
+# Manual SOAP requests (Postman)
+
+List<Person> getAllUsers
+(request)
+  
+```
+<soap:Envelope
+xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
+    <soap:Body xmlns:m="http://soap.resourceadapter.introsde/">
+        <m:getAllUsers>
+
+        </m:getAllUsers>
+    </soap:Body>
+</soap:Envelope>
+```
+
+(response)
+```
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <ns2:getAllUsersResponse xmlns:ns2="http://soap.resourceadapter.introsde/">
+            <getAllUsers>
+                <name>Marco</name>
+                <userId>1</userId>
+            </getAllUsers>
+            <getAllUsers>
+                <name>Piero</name>
+                <userId>2</userId>
+            </getAllUsers>
+            <getAllUsers>
+                <name>Sofia</name>
+                <userId>6</userId>
+            </getAllUsers>
+            <getAllUsers>
+                <name>Giulia</name>
+                <userId>7</userId>
+            </getAllUsers>
+           .....
+        </ns2:getAllUsersResponse>
+    </S:Body>
+</S:Envelope>
+```
