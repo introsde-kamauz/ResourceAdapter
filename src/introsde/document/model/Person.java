@@ -23,9 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name="\"Person\"")
 public class Person {
     
+	private static final long serialVersionUID = 1L;
 	@Id 
 	@GeneratedValue( strategy=GenerationType.AUTO )
-    @Column(name="\"userId\"")
+	@OneToMany(mappedBy="\"userId\"")
+	@Column(name="\"userId\"")
     private String userId;
     
     @Column(name="\"name\"")

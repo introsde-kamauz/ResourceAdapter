@@ -10,22 +10,24 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @NamedQueries({
 	
-	@NamedQuery(name="Person.getPersonByUser",
-		query="SELECT a FROM Person a WHERE a.userId=:Person"),
+	@NamedQuery(name="Artist.getArtistNameById",
+		query="SELECT a FROM Artist a WHERE a.id=:Artist"),
 	
-	@NamedQuery(name="Person.findAll",
-		query="SELECT p FROM Person p")
+	@NamedQuery(name="Artist.findAll",
+		query="SELECT p FROM Artist p")
 	
 })
 
-public enum PersonDao {
+public enum ArtistDao {
 	instance;
 	private EntityManagerFactory emf;
 	
-	private PersonDao() {
+	private ArtistDao() {
 		if (emf!=null) {
 			emf.close();
 		}
@@ -54,30 +56,30 @@ public enum PersonDao {
 		return emf;
 	}
 	
-	public static void add(Person p) {
+	public static void add(Artist p) {
 		try {
-			EntityManager em = PersonDao.instance.createEntityManager();
+			EntityManager em = ArtistDao.instance.createEntityManager();
 	        EntityTransaction tx = em.getTransaction();
 	        tx.begin();        
 	        em.persist(p);
 	        tx.commit();
-	        PersonDao.instance.closeConnections(em);
+	        ArtistDao.instance.closeConnections(em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public static void remove(Person p) {
+	public static void remove(Artist p) {
 	    	
 		try {
-	        EntityManager em = PersonDao.instance.createEntityManager();
+	        EntityManager em = ArtistDao.instance.createEntityManager();
 	        EntityTransaction tx = em.getTransaction();
 	        tx.begin();
 	        p=em.merge(p); //
 	        em.remove(p);
 	        tx.commit();
-	        PersonDao.instance.closeConnections(em);
+	        ArtistDao.instance.closeConnections(em);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,11 +87,11 @@ public enum PersonDao {
 	
 	// Person related operations could also directly go into the "Person" Model
 	// Check Methods in LifeStaus as example
-	public static Person getPersonById(String uid) {
+	public static Artist getArtistById(String uid) {
 		try {
 			EntityManager em = instance.createEntityManager();
 			
-			Person list = em.find(Person.class, uid);
+			Artist list = em.find(Artist.class, uid);
 		    		
 		    instance.closeConnections(em);
 			return list;
@@ -99,16 +101,16 @@ public enum PersonDao {
 		return null;
 	}
 	
-	public static List<Person> getAll() {
+	public static List<Artist> getAll() {
 		try {
 			EntityManager em = instance.createEntityManager();
-		    List<Person> list = em.createNamedQuery("Person.findAll", Person.class).getResultList();
+		    List<Artist> list = em.createNamedQuery("Artist.findAll", Artist.class).getResultList();
 		    instance.closeConnections(em);
 		    return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<Person>();
+		return new ArrayList<Artist>();
 	}
 
 }

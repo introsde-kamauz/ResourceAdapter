@@ -89,8 +89,9 @@ public enum PreferenceDao {
 		try {
 			EntityManager em = instance.createEntityManager();
 			
+			Person p = em.find(Person.class, uid);
 		    List<Preference> list = em.createNamedQuery("Preference.getPreferencesByUserId", Preference.class)
-		    		.setParameter("Person", uid)
+		    		.setParameter("Person", p)
 		    		.getResultList();
 		    		
 		    instance.closeConnections(em);
@@ -104,9 +105,11 @@ public enum PreferenceDao {
 	public static Preference getPreferencesByUserIdAndArtistId(String uid, Integer artistId) {
 		try {
 			EntityManager em = instance.createEntityManager();
+			Person p = em.find(Person.class, uid);
+			Artist a = em.find(Artist.class, artistId.toString());
 		    Preference list = em.createNamedQuery("Preference.getPreferencesByUserIdAndArtistId", Preference.class)
-		    		.setParameter("Person", uid)
-		    		.setParameter("artistId", artistId)
+		    		.setParameter("Person", p)
+		    		.setParameter("artistId", a)
 		    		.getSingleResult();
 		    instance.closeConnections(em);
 		    return list;
@@ -120,8 +123,9 @@ public enum PreferenceDao {
 	public static List<Preference> getPreferencesByUser(String uid) {
 		try {
 			EntityManager em = instance.createEntityManager();
+			Person p = em.find(Person.class, uid);
 		    List<Preference> list = em.createNamedQuery("Preference.getPreferencesByUser", Preference.class)
-		    		.setParameter("Person", uid)
+		    		.setParameter("Person", p)
 		    		.getResultList();
 		    instance.closeConnections(em);
 		    return list;

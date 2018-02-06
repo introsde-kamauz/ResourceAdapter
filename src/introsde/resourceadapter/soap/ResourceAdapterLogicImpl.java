@@ -1,5 +1,6 @@
 package introsde.resourceadapter.soap;
 
+import introsde.document.dao.ArtistDao;
 import introsde.document.dao.EvaluationDao;
 import introsde.document.dao.PersonDao;
 import introsde.document.dao.PreferenceDao;
@@ -36,6 +37,9 @@ public class ResourceAdapterLogicImpl implements ResourceAdapterLogic {
 		
 		try {
 			System.out.println("Resource adapter -> addArtist");
+			Artist a = new Artist();
+			PersonDao.add(p.getUserId());
+			ArtistDao.add(p.getArtistId());
 			PreferenceDao.add(p);
 		} catch(Exception err) {
 			err.printStackTrace();
@@ -273,10 +277,23 @@ public class ResourceAdapterLogicImpl implements ResourceAdapterLogic {
 	public void evaluateArtistRecommendation(String artistId, String artistName, String id, Integer rate) {
 		try {
 			Evaluation e = new Evaluation();
-			e.setArtistId(artistId);
-			e.setUserId(id);
+			Artist a = ArtistDao.getArtistById(artistId);
+			Person p = PersonDao.getPersonById(id);
+			if (p == null) {
+				return;
+			}
+			if (a == null) {
+				a = new Artist();
+				a.setId(artistId);
+				a.setName(artistName);
+				ArtistDao.add(a);
+			}
+			
+			a = ArtistDao.getArtistById(artistId);
+			
+			e.setArtistId(a);
+			e.setUserId(p);
 			e.setRate(rate);
-			e.setArtistName(artistName);
 			EvaluationDao.add(e);
 		} catch(Exception err) {
 			err.printStackTrace();
@@ -317,5 +334,15 @@ public class ResourceAdapterLogicImpl implements ResourceAdapterLogic {
 			e.printStackTrace();
 		}
 		return new ArrayList<Person>();
+	}
+
+	@Override
+	public Artist getArtistById(String id) {
+		try {
+			return ArtistDao.getArtistById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -27,46 +27,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 @IdClass(Primary.class)
 public class Preference {
     
-    @Id
-    @Column(name="\"userId\"")
-    private String userId;
-    @Id
-    @Column(name="\"artistId\"")
-    private String artistId;
+	@Id
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"userId\"", referencedColumnName="\"userId\"")
+	private Person userId;
     
-    @Column(name="\"artistName\"")
-    private String artistName;
+	@Id
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"artistId\"", referencedColumnName="\"artistId\"")
+    private Artist artistId;
     
     public Preference() {
     	
     }
     
-    public Preference(String userId, String artistId) {
+    public Preference(Person userId, Artist artistId) {
     	this.setUserId(userId);
     	this.artistId = artistId;
     }
     
-    public String getArtistId() {
+    public Artist getArtistId() {
     	return this.artistId;
     }
     
-    public void setArtistId(String id) {
+    public void setArtistId(Artist id) {
     	this.artistId = id;
     }
-    
-    public String getArtistName() {
-    	return this.artistName;
-    }
-    
-    public void setArtistName(String name) {
-    	this.artistName = name;
-    }
 
-	public String getUserId() {
+	public Person getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Person userId) {
 		this.userId = userId;
 	}
 

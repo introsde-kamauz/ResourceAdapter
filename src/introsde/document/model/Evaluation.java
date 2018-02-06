@@ -25,14 +25,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Evaluation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name="\"userId\"")
-    private String userId;
-    @Id
-    @Column(name="\"artistId\"")
-    private String artistId;
+    @ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"userId\"", referencedColumnName="\"userId\"")
+	private Person userId;
     
-    @Column(name="\"artistName\"")
-    private String artistName;
+    @Id
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="\"artistId\"", referencedColumnName="\"artistId\"")
+    private Artist artistId;
     
     @Column(name="\"rate\"")
     private Integer rate;
@@ -46,28 +46,20 @@ public class Evaluation implements Serializable {
     	return this.rate;
     }
     
-    public String getUserId() {
+    public Person getUserId() {
     	return this.userId;
     }
     
-    public void setUserId(String userId) {
+    public void setUserId(Person userId) {
     	this.userId = userId;
     }
     
-    public String getArtistId() {
+    public Artist getArtistId() {
     	return this.artistId;
     }
     
-    public void setArtistId(String artistId) {
+    public void setArtistId(Artist artistId) {
     	this.artistId = artistId;
-    }
-    
-    public String getArtistName() {
-    	return this.artistName;
-    }
-    
-    public void setArtistName(String artistName) {
-    	this.artistName = artistName;
     }
 
 }

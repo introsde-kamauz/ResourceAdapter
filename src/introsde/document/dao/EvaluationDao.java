@@ -88,8 +88,9 @@ public enum EvaluationDao {
 		try {
 			EntityManager em = instance.createEntityManager();
 			
+			Person p = em.find(Person.class, uid);
 		    List<Evaluation> list = em.createNamedQuery("Evaluation.getEvaluationsByUserId", Evaluation.class)
-		    		.setParameter("Person", uid)
+		    		.setParameter("Person", p)
 		    		.getResultList();
 		    		
 		    instance.closeConnections(em);

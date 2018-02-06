@@ -10,7 +10,8 @@ import introsde.resourceadapter.soap.*;
 
 public class Client {
     public static void main(String[] args) throws Exception {
-        URL url = new URL("https://resourceadapter.herokuapp.com/?wsdl");
+        URL url = new URL("http://resourceadapter.herokuapp.com/?wsdl");
+    	//URL url = new URL("http://10.38.224.129:6902/resourceadapter?wsdl");
         // 1st argument service URI, refer to wsdl document above
         // 2nd argument is service name, refer to wsdl document above
         QName qname = new QName("http://soap.resourceadapter.introsde/", "ResourceService");
@@ -18,10 +19,14 @@ public class Client {
         ResourceAdapterLogic hello = service.getPort(ResourceAdapterLogic.class);
  
         Preference p = new Preference();
-        p.setArtistId("44022");
-        p.setArtistName("Slash");
-       
-        p.setUserId("1");
+        hello.register("Marco");
+        
+        Person person = hello.getPersonByUser("1");
+        Artist a = new Artist();
+        a.setId("44022");
+        a.setName("Metallica");
+        p.setArtistId(a);
+        p.setUserId(person);
         hello.addArtist(p);
         
         List<Preference> l = hello.getProfilePreferences("1");

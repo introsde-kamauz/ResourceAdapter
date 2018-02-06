@@ -71,11 +71,16 @@ public interface ResourceAdapterLogic {
 	public Person getPersonByUser(String id);
 	
 	// 13
-	@WebMethod(operationName="register")
-	@WebResult(name="register")
-	public void register(String id);
+	@WebMethod(operationName="getArtistById")
+	@WebResult(name="getArtistById")
+	public Artist getArtistById(String id);
 	
 	// 14
+	@WebMethod(operationName="register")
+	@WebResult(name="register")
+	public void register(String name);
+	
+	// 15
 	@WebMethod(operationName="getAllUsers")
 	@WebResult(name="getAllUsers")
 	public List<Person> getAllUsers();
